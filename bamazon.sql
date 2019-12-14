@@ -9,7 +9,21 @@ CREATE TABLE products(
     price DECIMAL(10,4) NULL,
     stock_quanity INT NOT NULL,
     PRIMARY KEY(item_id)
-)
+);
+
+INSERT INTO products (product_name, department_name, price, stock_quanity)
+VALUES 
+    ("Beanie", "Clothing", 8, 700),
+    ("Shampoo", "Beauty", 10, 100),
+    ("Ice Trays", "Household", 10.99, 500),
+    ("Protein Powder", "Food", 30, 40),
+    ("Scissors", "Household", 5, 5000),
+    ("Microwave", "Household", 5, 9),
+    ("CD", "Entertainment", 15.99, 1000),
+    ("Headphones", "Electronic", 55.99, 15),
+    ("Fan", "Household", 29, 19),
+    ("Eyeshadow", "Beauty", 45, 600)
+
 
 -- item_id (unique id for each product)
 -- product_name (Name of product)

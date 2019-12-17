@@ -124,8 +124,8 @@ function modifyOrder() {
 
 }
 function quit() {
-    console.log("||||||||||||||||||||||||||||||||||||");
+    console.log("------------------------------")
     console.log("Thanks for visiting, see you soon!");
-    console.log("||||||||||||||||||||||||||||||||||||");
+    console.log("------------------------------")
     connection.end();
 }

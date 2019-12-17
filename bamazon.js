@@ -54,11 +54,12 @@ function messages() {
         .then(function (answers) {
             var inputId = answers.item_id;
             var quantity = answers.stock_quanity;
+            // if(answers === "Q"){
+            //     quit();
+            // }
             connection.query("SELECT * FROM products WHERE item_id = " + inputId, function (err, response) {
                 if (err) throw err;
-                if(answers === "Q"){
-                    quit();
-                }
+
                 if (response[0].stock_quanity >= quantity) {
                     console.log("Your order has been completed.")
 
@@ -69,10 +70,7 @@ function messages() {
                         console.log("||||||||||||||||||||||||||||||||||||")
 
                         restart();
-
                     })
-
-
 
                 } else {
                     console.log("||||||||||||||||||||||||||||||||||||")
@@ -98,7 +96,7 @@ function restart() {
             },
         ])
         .then(function (answer) {
-            if (answer.modifyOrder === "Yes") {
+            if (answer.restart === "Yes") {
                 display()
             } else {
                 quit()
@@ -107,23 +105,23 @@ function restart() {
 
 }
 
-function modifyOrder(){
+function modifyOrder() {
     inquirer
-    .prompt([
-        {
-            name: "modifyOrder",
-            type: "list",
-            message: "Would you like to modify your order?",
-            choices: ["Yes", "No"]
-        },
-    ])
-    .then(function (answer) {
-        if (answer.modifyOrder === "Yes")  {
-            display();
-        } else {
-            quit();
-        }
-    });
+        .prompt([
+            {
+                name: "modifyOrder",
+                type: "list",
+                message: "Would you like to modify your order?",
+                choices: ["Yes", "No"]
+            },
+        ])
+        .then(function (answer) {
+            if (answer.modifyOrder === "Yes") {
+                display();
+            } else {
+                quit();
+            }
+        });
 
 }
 function quit() {

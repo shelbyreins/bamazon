@@ -36,47 +36,50 @@ function display() {
 }
 
 function messages() {
+    console.log("----------------------------")
+    console.log("Welcome to Bamazon!")
+    console.log("----------------------------")
     inquirer
         .prompt([
             {
                 name: "item_id",
                 type: "input",
                 message: "What is the ID of the item you would like to purchase?",
-                filter: Number
             },
             {
                 name: "stock_quanity",
                 type: "input",
                 message: "How many item(s) would you like to purchase?",
-                filter: Number
             }
         ])
         .then(function (answers) {
             var inputId = answers.item_id;
             var quantity = answers.stock_quanity;
-            // if(answers === "Q"){
+            // if(inputId === "Q"){
             //     quit();
             // }
             connection.query("SELECT * FROM products WHERE item_id = " + inputId, function (err, response) {
                 if (err) throw err;
 
                 if (response[0].stock_quanity >= quantity) {
+                    console.log("----------------------------")
                     console.log("Your order has been completed.")
+                    console.log("----------------------------")
 
                     connection.query("UPDATE products SET stock_quanity =" + (response[0].stock_quanity - quantity) + " WHERE item_id =" + inputId, function (error, response) {
                         if (error) throw error;
-                        console.log("||||||||||||||||||||||||||||||||||||")
+                        console.log("----------------------------")
                         console.log("Your order has been placed!")
-                        console.log("||||||||||||||||||||||||||||||||||||")
-                        
+                        console.log("----------------------------")
+
                         restart();
                     })
 
                 } else {
-                    console.log("||||||||||||||||||||||||||||||||||||")
+                    console.log("----------------------------")
                     console.log("Please modify your order.")
                     console.log("Sorry, there is not enough product in stock.")
-                    console.log("||||||||||||||||||||||||||||||||||||")
+                    console.log("----------------------------")
 
                     modifyOrder();
                 }
@@ -96,7 +99,7 @@ function restart() {
             },
         ])
         .then(function (answer) {
-            if (answer.modifyOrder === "Yes") {
+            if (answer.restart === "Yes") {
                 display()
             } else {
                 quit()
@@ -125,8 +128,8 @@ function modifyOrder() {
 
 }
 function quit() {
-    console.log("||||||||||||||||||||||||||||||||||||");
+    console.log("----------------------------")
     console.log("Thanks for visiting, see you soon!");
-    console.log("||||||||||||||||||||||||||||||||||||");
+    console.log("----------------------------")
     connection.end();
 }

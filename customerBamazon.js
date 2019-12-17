@@ -61,23 +61,22 @@ function messages() {
                 if (err) throw err;
 
                 if (response[0].stock_quanity >= quantity) {
+                    console.log("------------------------------")
                     console.log("Your order has been completed.")
+                    console.log("------------------------------")
 
                     connection.query("UPDATE products SET stock_quanity =" + (response[0].stock_quanity - quantity) + " WHERE item_id =" + inputId, function (error, response) {
                         if (error) throw error;
-                        console.log("||||||||||||||||||||||||||||||||||||")
+                        console.log("------------------------------")
                         console.log("Your order has been placed!")
-                        console.log("||||||||||||||||||||||||||||||||||||")
-                        
+                        console.log("------------------------------")                        
                         restart();
                     })
 
                 } else {
-                    console.log("||||||||||||||||||||||||||||||||||||")
-                    console.log("Please modify your order.")
+                    console.log("------------------------------")                    console.log("Please modify your order.")
                     console.log("Sorry, there is not enough product in stock.")
-                    console.log("||||||||||||||||||||||||||||||||||||")
-
+                    console.log("------------------------------")
                     modifyOrder();
                 }
 

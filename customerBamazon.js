@@ -13,6 +13,9 @@ var connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
+    console.log("----------------------------")
+    console.log("Welcome to Bamazon!")
+    console.log("----------------------------")
     display();
 });
 
@@ -20,7 +23,7 @@ function display() {
     connection.query("SELECT * FROM products", function (err, response) {
         if (err) throw err;
         var table = new Table({
-            head: ['ID', 'PRODUCT', 'DEPARTMENT', 'PRICE', 'QUANTITY']
+            head: ["ID", "PRODUCT", "DEPARTMENT", "PRICE", "QUANTITY"]
             , colWidths: [5, 20, 20, 10, 12]
         });
         for (var i = 0; i < response.length; i++) {
@@ -36,28 +39,33 @@ function display() {
 }
 
 function messages() {
-    console.log("----------------------------")
-    console.log("Welcome to Bamazon!")
-    console.log("----------------------------")
     inquirer
         .prompt([
             {
                 name: "item_id",
                 type: "input",
                 message: "What is the ID of the item you would like to purchase?",
+            
             },
             {
                 name: "stock_quanity",
                 type: "input",
                 message: "How many item(s) would you like to purchase?",
+                // validate: function(value){
+                //     if(!isNaN(value) == false){
+                //         return true;
+                        
+                //     }else{
+                //         console.log("Please enter an integer");
+                //         return false;
+                //     }
+                // }
             }
         ])
         .then(function (answers) {
-            var inputId = answers.item_id;
+            var inputId = parseInt(answers.item_id);
             var quantity = answers.stock_quanity;
-            // if(inputId === "Q"){
-            //     quit();
-            // }
+            
             connection.query("SELECT * FROM products WHERE item_id = " + inputId, function (err, response) {
                 if (err) throw err;
 
@@ -127,9 +135,22 @@ function modifyOrder() {
         });
 
 }
+
+
+
+
 function quit() {
     console.log("----------------------------")
     console.log("Thanks for visiting, see you soon!");
     console.log("----------------------------")
     connection.end();
 }
+
+// function qForQuit(input){
+//     if(input.upperCase()=== "Q"){
+//         console.log("----------------------------")
+//         console.log("Thanks for visiting, see you soon!");
+//         console.log("----------------------------")
+//         connection.end();
+//         }
+// }

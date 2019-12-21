@@ -45,39 +45,45 @@ function messages() {
                 name: "item_id",
                 type: "input",
                 message: "What is the ID of the item you would like to purchase?",
-            
+                validate: function (value) {
+                    if (isNaN(value) === false || value === "q") {
+                        return true;
+                    } else {
+                        console.log("Please enter an ID number");
+                        return false;
+                    }
+                }
             },
             {
                 name: "stock_quanity",
                 type: "input",
                 message: "How many item(s) would you like to purchase?",
-                // validate: function(value){
-                //     if(!isNaN(value) == false){
-                //         return true;
-                        
-                //     }else{
-                //         console.log("Please enter an integer");
-                //         return false;
-                //     }
-                // }
-            }
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true;
+                    } else {
+                        console.log("Please enter an integer");
+                        return false;
+                    }
+                }
+            },
         ])
         .then(function (answers) {
             var inputId = parseInt(answers.item_id);
             var quantity = answers.stock_quanity;
-            
             connection.query("SELECT * FROM products WHERE item_id = " + inputId, function (err, response) {
                 if (err) throw err;
 
                 if (response[0].stock_quanity >= quantity) {
                     console.log("----------------------------")
-                    console.log("Your order has been completed.")
-                    console.log("----------------------------")
+                    console.log("Your order has been placed.")
+                    console.log("Successfully purchased " + quantity + " " + response[0].product_name + "(s).")
+
+
 
                     connection.query("UPDATE products SET stock_quanity =" + (response[0].stock_quanity - quantity) + " WHERE item_id =" + inputId, function (error, response) {
                         if (error) throw error;
-                        console.log("----------------------------")
-                        console.log("Your order has been placed!")
+                        console.log("Your order is complete!")
                         console.log("----------------------------")
 
                         restart();
@@ -145,12 +151,3 @@ function quit() {
     console.log("----------------------------")
     connection.end();
 }
-
-// function qForQuit(input){
-//     if(input.upperCase()=== "Q"){
-//         console.log("----------------------------")
-//         console.log("Thanks for visiting, see you soon!");
-//         console.log("----------------------------")
-//         connection.end();
-//         }
-// }

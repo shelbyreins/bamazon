@@ -35,7 +35,7 @@ Bamazon is a command line interface (CLI) application, an Amazon-like virtual st
     ### **Customer** 
     `node customerBamazon.js`
 
-    After running the above command, a table will appear with the current inventory. Two questions will be prompted. To answer the first question, type in the ID number from the table matching the item you would like to purchase. The following question asks for the quantity you are looking for (reference the quantity available in the table. Finally your order will either be completed or if we do not have sufficient inventory, the order will not be completed and a second prompt will ask if you want to modify the order. 
+    After running the above command, a table will appear with the current inventory. Two questions will be prompted. To answer the first question, type in the ID number from the table matching the item you would like to purchase. The following question asks for the quantity you are looking for (reference the quantity available in the table). Finally your order will either be completed or if we do not have sufficient inventory, the order will not be completed and a second prompt will ask if you want to modify the order. 
 
     #### See the customer side of Bamazon in action
 
